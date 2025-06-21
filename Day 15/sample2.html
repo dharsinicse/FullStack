@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="container">
+  <h2>Task List</h2>
+</div>
+
+<button onclick="addTask()">Add Task</button>
+<button onclick="removeTask()">Remove Task</button>
+
+<script>
+  let task; // global reference
+
+  function addTask() {
+    task = document.createElement("p");
+    task.textContent = "✅ New Task";
+    document.getElementById("container").appendChild(task);
+  }
+
+  function removeTask() {
+    let task = document.querySelectorAll('p');
+    let n = task.length;
+    document.getElementById("container").removeChild(task[n-1]);
+  }
+</script>
+
+</body>
+</html>
