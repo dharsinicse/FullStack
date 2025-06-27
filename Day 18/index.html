@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="username" placeholder="Enter name" />
+    <button onclick="addUser()">Add</button>
+    <button onclick="removeUser()">Remove</button>
+    <button onclick="clearUsers()">Clear All</button>
+
+    <ul id="userList"></ul>
+    <script>
+        // Load and display users on page load
+        window.onload = displayUsers;
+
+        function getUsers() {
+            const users = localStorage.getItem("users");
+            return users ? JSON.parse(users) : [];
+        }
+
+        function setUsers(users) {
+            localStorage.setItem("users", JSON.stringify(users));
+        }
+
+        function addUser() {
+            const input = document.getElementById("username");
+            const name = input.value.trim();
+            if (name) {
+                const users = getUsers();
+                users.push(name);
+                setUsers(users);
+                input.value = "";
+                displayUsers();
+            }
+        }
+
+        function removeUser() {
+            let users = getUsers();
+            if (users.length > 0) {
+                users.pop(); // Remove last item from the array
+                setUsers(users);
+                displayUsers();
+            }
+        }
+
+
+        function clearUsers() {
+            localStorage.removeItem("users");
+            displayUsers();
+        }
+
+        function displayUsers() {
+            const users = getUsers();
+            const list = document.getElementById("userList");
+            list.innerHTML = "";
+            users.forEach(user => {
+                const li = document.createElement("li");
+                li.textContent = user;
+                list.appendChild(li);
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>

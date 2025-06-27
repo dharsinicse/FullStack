@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin View</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Submitted User Data</h1>
+    <div id="dataContainer"></div>
+
+    <script>
+        const data = JSON.parse(localStorage.getItem('userData')) || [];
+        const container = document.getElementById('dataContainer');
+
+        if (data.length === 0) {
+            container.innerHTML = "<p class='no-data'>No data found.</p>";
+        } else {
+            data.forEach((user, i) => {
+                const entry = `
+          <div class="entry">
+            <h3>User ${i + 1}</h3>
+            <p><strong>Name:</strong> ${user.name}</p>
+            <p><strong>Address:</strong> ${user.address}</p>
+            <p><strong>Age:</strong> ${user.age}</p>
+            <p><strong>Phone:</strong> ${user.phone}</p>
+            <p><strong>Feedback:</strong> ${user.feedback}</p>
+          </div>
+        `;
+                container.innerHTML += entry;
+            });
+        }
+    </script>
+</body>
+
+</html>
